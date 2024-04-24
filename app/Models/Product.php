@@ -15,4 +15,9 @@ class Product extends Model
         'price',
         'stock',
     ];
+
+    public function ordenes_de_compra()
+    {
+        return $this->hasMany(OrdenesCompra::class);
+    }
 }

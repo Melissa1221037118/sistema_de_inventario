@@ -17,5 +17,10 @@ class Proveedor extends Model
         'email',
     ];
 
+    public function ordenes_de_compra()
+    {
+        return $this->hasMany(OrdenesCompra::class);
+    }
+
 
 }

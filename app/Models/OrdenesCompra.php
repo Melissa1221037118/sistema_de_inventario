@@ -18,5 +18,14 @@ class OrdenesCompra extends Model
         'fecha_entrega'
     ];
 
-    
+    public function producto()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedor::class);
+    }
+
 }
