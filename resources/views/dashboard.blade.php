@@ -32,7 +32,7 @@
                             PROVEEDORES
                         </a>
 
-                        <a href="{{ route('proveedores.index') }}" class="text-center bg-blue-300 hover:bg-blue-400 text-white py-2 px-3 rounded-lg text-xl">
+                        <a href="{{ route('ordenes.index') }}" class="text-center bg-blue-300 hover:bg-blue-400 text-white py-2 px-3 rounded-lg text-xl">
                             ORDENES DE COMPRA
                         </a>
                     </section>
