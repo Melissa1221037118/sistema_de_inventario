@@ -18,7 +18,7 @@
     </div>
 
     <div class="flex justify-end p-8">
-        {{ Aire::submit('Editar Producto')->class('bg-green-500 hover:bg-green-600 ') }}
+        {{ Aire::submit('Editar')->class('bg-green-500 hover:bg-green-600 ') }}
     </div>
 
     {{ Aire::close() }}
