@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('ordenes_compras', function (Blueprint $table) {
             $table->id();
             //foranea para producto
-            $table->unsignedBigInteger('producto_id');
-            $table->foreign('producto_id')->references('id')->on('productos');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
             //foranea para proveedor
             $table->unsignedBigInteger('proveedor_id');
             $table->foreign('proveedor_id')->references('id')->on('proveedores');

@@ -11,7 +11,7 @@ class OrdenesCompra extends Model
     protected $table = 'ordenes_compras';
 
     protected $fillable = [
-        'producto_id',
+        'product_id',
         'proveedor_id',
         'cantidad',
         'fecha_orden',
@@ -20,7 +20,7 @@ class OrdenesCompra extends Model
 
     public function producto()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class,'product_id');
     }
 
     public function proveedor()

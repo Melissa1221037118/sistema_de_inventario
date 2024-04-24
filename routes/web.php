@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProveedorController;
+use App\Http\Controllers\Admin\OrdenesCompraController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/productos',ProductController::class);
     Route::resource('/proveedores',ProveedorController::class);
+    Route::resource('/ordenes',OrdenesCompraController::class);
 
 });
 

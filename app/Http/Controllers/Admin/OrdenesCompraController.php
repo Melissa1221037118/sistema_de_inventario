@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\OrdenesCompra;
+use App\Models\Product;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
 
 class OrdenesCompraController extends Controller
@@ -12,7 +15,11 @@ class OrdenesCompraController extends Controller
      */
     public function index()
     {
-        //
+        $ordenesCompra = OrdenesCompra::all();
+
+        $context = compact('ordenesCompra');
+
+        return view('ordenes_compra.index',$context);
     }
 
     /**
@@ -20,7 +27,12 @@ class OrdenesCompraController extends Controller
      */
     public function create()
     {
-        //
+        $products = Product::all();
+        $proveedores = Proveedor::all();
+
+        $context = compact('products','proveedores');
+
+        return view('ordenes_compra.create',$context);
     }
 
     /**
@@ -28,7 +40,38 @@ class OrdenesCompraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //info($request->all());
+
+        $validated = $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'proveedor_id' => 'required',
+            'cantidad' => 'required|integer|min:1',
+            'fecha_entrega' => 'required|date'
+        ]);
+
+        $producto = Product::findOrFail($validated['product_id']);
+
+        if ($validated['cantidad'] > $producto->stock) {
+            return back()->withError('La cantidad solicitada supera el stock disponible');
+        }
+
+        $cantidadStock = $producto->stock - $validated['cantidad'];
+
+        if($cantidadStock < 0){
+            $cantidadStock = 0;
+        }
+
+        $producto->update([
+            'stock' => $cantidadStock
+        ]);
+
+        $fecha_orden = now();
+
+        $validated['fecha_orden'] = $fecha_orden;
+
+        OrdenesCompra::create($validated);
+
+        return redirect()->route('ordenes.index');
     }
 
     /**
@@ -44,22 +87,59 @@ class OrdenesCompraController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $products = Product::all();
+        $proveedores = Proveedor::all();
+        $orden = OrdenesCompra::find($id);
+
+        $context = compact('products','proveedores','orden');
+
+        return view('ordenes_compra.edit',$context);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'proveedor_id' => 'required',
+            'cantidad' => 'required|integer|min:1',
+            'fecha_entrega' => 'required|date'
+        ]);
+
+        $producto = Product::findOrFail($validated['product_id']);
+
+        if ($validated['cantidad'] > $producto->stock) {
+            return back()->withError('La cantidad solicitada supera el stock disponible');
+        }
+
+        $cantidadStock = $producto->stock - $validated['cantidad'];
+
+        if($cantidadStock < 0){
+            $cantidadStock = 0;
+        }
+
+        $producto->update([
+            'stock' => $cantidadStock
+        ]);
+
+        $ordenCompra = OrdenesCompra::find($id);
+
+        $ordenCompra->update($validated);
+
+        return redirect()->route('ordenes.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy( $id)
     {
-        //
+        $orden = OrdenesCompra::find($id);
+
+        $orden->delete();
+
+        return redirect()->route('ordenes.index')->with('success','Orden eliminada');
     }
 }
