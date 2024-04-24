@@ -6,7 +6,7 @@
         </h2>
     </x-slot>
 
-    {{ Aire::open()->route('productos.store') }}
+    {{ Aire::open()->route('productos.store')->class('bg-white m-2') }}
 
     <div class="grid grid-cols-2 gap-4 p-8">
 

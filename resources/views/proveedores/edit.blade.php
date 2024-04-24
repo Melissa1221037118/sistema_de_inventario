@@ -6,7 +6,7 @@
         </h2>
     </x-slot>
 
-    {{ Aire::open()->route('proveedores.update',$proveedor->id) }}
+    {{ Aire::open()->route('proveedores.update',$proveedor->id)->class('bg-white m-2') }}
 
     <div class="grid grid-cols-2 gap-4 p-8">
 
