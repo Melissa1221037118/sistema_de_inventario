@@ -71,7 +71,7 @@ class OrdenesCompraController extends Controller
 
         OrdenesCompra::create($validated);
 
-        return redirect()->route('ordenes.index');
+        return redirect()->route('ordenes.index')->with('success','Orden de compra creada');
     }
 
     /**
@@ -135,7 +135,7 @@ class OrdenesCompraController extends Controller
 
         $ordenCompra->update($validated);
 
-        return redirect()->route('ordenes.index');
+        return redirect()->route('ordenes.index')->with('success','Orden de compra actualizada');
     }
 
     /**
