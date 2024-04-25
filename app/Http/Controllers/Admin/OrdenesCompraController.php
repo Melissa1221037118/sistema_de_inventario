@@ -101,6 +101,11 @@ class OrdenesCompraController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $ordenCompra = OrdenesCompra::find($id);
+
+        $old_cantidad = $ordenCompra->cantidad;
+
         $validated = $request->validate([
             'product_id' => 'required|exists:products,id',
             'proveedor_id' => 'required',
@@ -110,11 +115,15 @@ class OrdenesCompraController extends Controller
 
         $producto = Product::findOrFail($validated['product_id']);
 
-        if ($validated['cantidad'] > $producto->stock) {
+        $new_cantidad = $validated['cantidad'];
+
+        $diferencia = $new_cantidad - $old_cantidad;
+
+        if ($diferencia > $producto->stock) {
             return back()->withError('La cantidad solicitada supera el stock disponible');
         }
 
-        $cantidadStock = $producto->stock - $validated['cantidad'];
+        $cantidadStock = $producto->stock - $diferencia;
 
         if($cantidadStock < 0){
             $cantidadStock = 0;
@@ -123,8 +132,6 @@ class OrdenesCompraController extends Controller
         $producto->update([
             'stock' => $cantidadStock
         ]);
-
-        $ordenCompra = OrdenesCompra::find($id);
 
         $ordenCompra->update($validated);
 
