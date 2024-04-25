@@ -16,6 +16,7 @@
                     <td class="py-2 px-4 border-b border-gray-200 font-bold">Cantidad</td>
                     <td class="py-2 px-4 border-b border-gray-200 font-bold">Fecha de Orden</td>
                     <td class="py-2 px-4 border-b border-gray-200 font-bold">Fecha de Entrega</td>
+                    <td class="py-2 px-4 border-b border-gray-200 font-bold">Total</td>
                     <td class="py-2 px-4 border-b border-gray-200 font-bold"></td>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                         <td class="py-2 px-4 border-b border-gray-200">{{ $orden->cantidad }}</td>
                         <td class="py-2 px-4 border-b border-gray-200">{{ $orden->fecha_orden }}</td>
                         <td class="py-2 px-4 border-b border-gray-200">{{ $orden->fecha_entrega }}</td>
+                        <td class="py-2 px-4 border-b border-gray-200">${{ $orden->producto->price * $orden->cantidad }}</td>
                         <td class="py-2 px-4 border-b border-gray-200 flex gap-4 items-center justify-end">
                             <a href="{{ route('ordenes.edit', $orden->id) }}" class="px-2 py-3 bg-blue-400 hover:bg-blue-500 text-white rounded-lg flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">

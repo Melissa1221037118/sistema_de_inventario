@@ -22,7 +22,7 @@
                 @foreach ($products as $product)
                     <tr>
                         <td class="py-2 px-4 border-b border-gray-200">{{ $product->name }}</td>
-                        <td class="py-2 px-4 border-b border-gray-200">{{ $product->price }}</td>
+                        <td class="py-2 px-4 border-b border-gray-200">${{ $product->price }}</td>
                         <td class="py-2 px-4 border-b border-gray-200">{{ $product->stock }}</td>
                         <td class="py-2 px-4 border-b border-gray-200">{{ $product->description }}</td>
                         <td class="py-2 px-4 border-b border-gray-200 flex gap-4 items-center justify-end">
